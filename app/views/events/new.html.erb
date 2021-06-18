@@ -1,0 +1,23 @@
+<section class="d-flex align-items-center" style="height: 93.5vh; width: 100vw;">
+  <main class="form-signin text-center m-auto" style="width: 100%; max-width: 363px; padding: 15px;">
+
+    <% if @alert %>
+      <h3><%= @alert %></h3>
+        <% @errors.each do |m| %>
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <%= m %><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        <% end %>
+    <% end %>
+
+    <%= image_tag "Exilic-Logo-03-Square-Black.png", alt: "logo", width: "75", height: "75" %>
+    <h1 class="h3 mb-3 fw-normal">Create Event</h1>
+
+    <%= render 'form', event: @event %>
+
+    <p class="mt-3">
+      <%= link_to "Back to List", events_path %>
+    </p>
+
+  </main>
+</section>

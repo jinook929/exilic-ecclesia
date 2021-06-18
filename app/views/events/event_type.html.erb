@@ -1,0 +1,36 @@
+<div class="container">
+
+<h1 class="text-center mt-5"><%= @note %> Events</h1>
+<p class="lead text-center"><%= link_to "Back to List", events_path %></p>
+
+<div class="accordion mb-3" id="accordionExample">
+  
+  <% @events.each_with_index do |event, i| %>
+    
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="heading_<%=i%>">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_<%=i%>" aria-expanded="false" aria-controls="collapseOne">
+        <%= event.title %>
+      </button>
+    </h2>
+    <div id="collapse_<%=i%>" class="accordion-collapse collapse" aria-labelledby="heading_<%=i%>" data-bs-parent="#accordionExample">
+      <div class="accordion-body text-center mx-auto gap-5">
+        <p>Date: <%= event.date %><%= ' | On-Site' if event.onsite %></p>
+        <p><%= event.open? %></p>
+        <% if current_user && params[:user_id] %>
+          <%= link_to "Show", user_event_path(current_user, event), class: "btn btn-warning btn-lg mx-3 px-5", style: "width: 150px;" %>
+        <% else %>
+          <%= link_to "Show", event_path(event), class: "btn btn-warning btn-lg mx-3 px-5", style: "width: 150px;" %>
+        <% end %>
+        <% if current_user && current_user.admin %>
+          <button type="button" class="btn btn-dark btn-lg mx-3 px-5" style="width: 150px;">Edit</button>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <% end %>
+
+</div>
+
+</div>

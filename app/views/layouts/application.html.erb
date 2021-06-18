@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Exilic</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+  <body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="https://www.exilic.com/" target="_blank">
+          <%= image_tag "Exilic-Logo-03-Square-Black.png", alt: "logo", width: "30", height: "30" %>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <%= link_to "Home", root_path, class: "nav-link fw-bold mx-3 active" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "Events", events_path, class: "nav-link fw-bold mx-3" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "General Info", info_path, class: "nav-link fw-bold mx-3" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "Health&Safety", safety_path, class: "nav-link fw-bold mx-3" %>
+            </li>
+          </ul>
+          <ul class="navbar-nav  mb-2 mb-lg-0">
+            <% if !logged_in? %>
+
+            <li class="navbar-item">
+              <a class="nav-link fw-bold mx-3" href="<%= signup_path %>" data-bs-toggle="modal" data-bs-target="#exampleModal">Sign Up</a>
+            </li>
+            <li class="navbar-item">
+              <a class="nav-link fw-bold mx-3" href="<%= login_path %>">Log In</a>
+            </li>
+
+            <% else %>
+
+            <li class="navbar-item">
+              <% if current_user && current_user.admin %>
+                <a class="nav-link fw-bold mx-3" href="<%= user_path(current_user) %>"><%= current_user.name.titlecase %> <code class="text-danger">[ADMIN]</code></a>
+              <% else %>
+                <a class="nav-link fw-bold mx-3" href="<%= user_path(current_user) %>"><%= current_user.name.titlecase %>'s Profile</a>
+              <% end %>
+            </li>
+            <li class="navbar-item">
+              <a class="nav-link fw-bold mx-3" href="<%= logout_path %>">Log Out</a>
+            </li>
+
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <%= yield %>
+
+    <!-- Modal -->
+    <div class="modal fade mt-5" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog mt-5">
+        <div class="modal-content">
+          <div class="modal-body text-center">
+            <%= image_tag "Exilic-Logo-03-Square-Black.png", alt: "logo", width: "75", height: "75" %>
+            <h1 class="h3 mb-4 fw-normal">Please Sign Up</h1>
+            <%= link_to "Go to Sign Up Page", signup_path, class: "btn btn-primary btn-lg mb-3 mx-2" %>
+             or 
+            <%= link_to "Sign In via Google", "/auth/google_oauth2", method: :post, class: "btn btn-success btn-lg mb-3 mx-2" %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>

@@ -1,0 +1,10 @@
+
+<p>
+  <%= f.check_box :family, class: "form-check-input mr-0 pr-0", id: "family" %>
+  <%= f.label :family, "Check if family attending", class: "form-check-label", for: "family" %>
+</p>
+<p>
+  <%= f.submit "#{params[:id] ? 'Update' : 'Register'}", class: "btn btn-primary mt-2 px-5" %>
+</p>
+
+<%= link_to "Back to Event", user_event_path(current_user, event) %>

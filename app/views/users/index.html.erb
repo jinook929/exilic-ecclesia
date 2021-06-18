@@ -1,0 +1,23 @@
+<div class="d-flex align-items-center mt-5" style="height: 100vh;">
+  <div class="m-auto text-center">
+    <% if params[:event_id] %>
+      <button class="btn btn-outline-dark btn-lg mb-4 px-5 py-3" disabled><h2>Attendees</h2></button>
+    <% else %>
+      <button class="btn btn-outline-dark btn-lg mb-4 px-5 py-3" disabled><h2>User List</h2></button>
+    <% end %>
+
+    <% if @users.empty? %>
+      <h3><%= "There is no registered user yet." %></h3>
+    <% end %>
+
+    <% @users.each do |user| %>
+      <h3 class="lead"><%= link_to user.name, user, class: "btn btn-outline-primary btn-lg"%> <%= admin_badge if user.admin %></h3>      
+    <% end %>
+
+    <% if params[:event_id] %>
+      <p class="mt-4"><%= link_to "Back to Event", event_path(params[:event_id]) %></p>
+    <% else %>
+      <p class="mt-4"><%= link_to "Back to Admin", user_path(current_user) %></p>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,14 @@
+<%= form_for user, url: login_path, method: :post do |f| %>
+  <div class="form-floating">
+    <%= f.email_field :email, class: "form-control", id: "floatingEmail", placeholder: "name@example.com" %>
+    <%= f.label :email, for: "floatingEmail" %>
+  </div>
+  <div class="form-floating">
+    <%= f.password_field :password, class: "form-control", id: "floatingPassword", placeholder: "**********" %>
+    <%= f.label :password, for: "floatingPassword" %>
+  </div>
+  <div>
+    <%= f.submit "Log In", class:"w-100 btn btn-lg btn-primary" %>
+  </div>
+  <p class="my-3 text-muted">&copy; 2021</p>
+<% end %>

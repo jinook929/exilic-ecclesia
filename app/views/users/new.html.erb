@@ -1,0 +1,32 @@
+<section class="d-flex align-items-center" style="height: 93.5vh; width: 100vw;">
+  <main class="form-signin text-center m-auto" style="width: 100%; max-width: 330px; padding: 15px;">
+
+    <% if @alert %>
+      <h3><%= @alert %></h3>
+        <% @errors.each do |m| %>
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <%= m %><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        <% end %>
+    <% end %>
+
+    <%= image_tag "Exilic-Logo-03-Square-Black.png", alt: "logo", width: "75", height: "75" %>
+    <h1 class="h3 mb-3 fw-normal">Please Sign Up</h1>
+
+    <%= form_for @user, url: signup_path do |f| %>
+      <%= render partial: 'form', locals: {user: @user, f: f} %>
+      <div class="form-floating">
+        <%= f.password_field :password, class: "form-control", id: "floatingPassword", placeholder: "**********" %>
+        <%= f.label :password, for: "floatingPassword" %>
+      </div>
+      <div class="form-floating">
+        <%= f.password_field :password_confirmation, class: "form-control", id: "floatingPasswordConfirmation", placeholder: "Confirm Password" %>
+        <%= f.label :password_confirmation, for: "floatingPasswordConfirmation" %>
+      </div>
+      <div>
+        <%= f.submit "Sign Up", class:"w-100 btn btn-lg btn-primary" %>
+      </div>
+    <% end %>
+
+  </main>
+</section>

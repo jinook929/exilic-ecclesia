@@ -1,0 +1,44 @@
+<% if flash[:alert] %>  
+  <div class="alert alert-warning alert-dismissible fade show text-center" role="alert">
+    <%= flash[:alert] %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<% end %>
+
+<div class="container text-center my-5">
+  <h1 class="my-5">Event Info</h1>
+  <div class="alert alert-info" role="alert">
+    <h2 class="alert-heading"><%= @event.title %></h2>
+    <% if @event.onsite %>
+      <code class="fw-bold">[ ON-SITE EVENT ]</code>
+    <% else %>
+      <code>[ VIRTUAL EVENT ]</code>
+    <% end %>
+    <p><%= date_time_display %></p>
+    <hr>
+    <p class="lead mb-0 px-5"><%= @event.description %></p>
+    <small class="muted">( <%= @event.open? %><strong><%= ', You are registered for this event.' if @event.users.include?(current_user) %></strong> )</small>
+  </div>
+
+  <a href="<%= new_event_registration_path(@event) %>" class="text-decoration-none text-reset <%= disabled_attr %>"><button type="button" class="btn btn-outline-danger btn-lg mt-3 mx-2 px-5" <%= disabled_attr %>>Register</button></a>
+
+  <br>
+
+  <% if logged_in? && params[:user_id] && Event.registered?(@event, current_user).present? %>
+    <%= link_to "Edit", edit_event_registration_path(@event, @registration), class: "btn btn-dark btn-lg mt-3 mx-2 px-5", style: "width: 200px;" %>
+    <%= link_to "Cancel", event_registration_path(@event, @registration), class: "btn btn-dark btn-lg mt-3 mx-2 px-5", style: "width: 200px;", method: :delete, data: { confirm: 'Are you certain you want to cancel this?' } %>
+  <% end %>
+
+  <% if current_user && current_user.admin %>
+    <p class="mt-4">
+      <%= link_to "Attendees", event_users_path(@event), class: "btn btn-outline-secondary btn-lg px-5" %>
+    </p>
+  <% end %>
+  
+  <p class="mt-3">
+    <% if current_user %>
+      <%= link_to "Back to Your List", user_events_path(current_user) %> | 
+    <% end %>
+    <%= link_to "Back to All Events", events_path %>
+  </p>
+</div>

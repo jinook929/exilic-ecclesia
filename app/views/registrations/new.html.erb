@@ -1,0 +1,15 @@
+<section class="d-flex align-items-center" style="height: 90vh;">
+  <div class="card text-center m-auto" style="width: 25rem;">
+    <%= image_tag "phil-desforges-L0K-87Ybwio-unsplash.jpg", alt: "registration", class: "card-img-top" %>
+    <div class="card-body">
+      <h3 class="text-decoration-underline mb-4">Event Summary</h3>
+      <p class="lead mb-1"><%= @event.title %></p>
+      <p class="mb-3"><%= @event.date %> @ <%= @event.time.strftime('%l:%M %p') %></p>
+      <h6 class="card-title mb-2">Family?</h6>
+          <%= form_with model: @registration, url: event_registrations_path do |f| %>
+            <%= render partial: 'form', locals: {event: @event, f: f} %>
+          <% end %>
+        </div>
+    </div>
+  </div>
+</section>
